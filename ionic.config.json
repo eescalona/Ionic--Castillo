@@ -1,0 +1,8 @@
+{
+  "name": "Cocinas Castillo",
+  "app_id": "CocinasCastillo",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

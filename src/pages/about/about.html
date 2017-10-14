@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Conocenos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-col align="center">
+    <div>
+      <img class= "center img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="75%" height="75%"/>
+    </div>
+  </ion-col>
+
+  <p> Cocinas Castillo es una empresa en Málaga dedicada a la venta, fabricación y montaje de muebles de cocina, armarios y vestidores a medida.<br/>
+  Trabajamos con primeras marcas y disponemos de todas las novedades y ultimas tendencias del mercado. <br/>
+  </p>
+  <h4 class="green">Horario Atención al Cliente</h4>
+  <p> 
+    Lunes-Viernes de 10:00 a 13:30 y de 17.00 a 20.00<br/>
+    Sábados de 10.30 a 13.30<br/>
+  </p>
+  <h4 class="green">Dirección</h4>
+  <p> 
+    Av. Washington, 15.
+    29006 Málaga
+    España<br/>
+  </p>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3198.5347147967314!2d-4.485041584712663!3d36.709717279967286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd72f0b261d84181%3A0x64e3b9b726fe05b1!2sCOCINAS+CASTILLO!5e0!3m2!1sen!2ses!4v1504743352890" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>  
+  <p><br/></p>
+  <h4 class="green">Datos de Contacto</h4>
+  <p>
+    Web: <a href="http://castillococinas.es/">www.castillococinas.es</a><br/>
+    Tel. 952 36 04 95<br/>
+    Email: mueblescastillo@hotmail.es
+  </p>
+</ion-content>
+
+<ion-footer class="dark">
+    <ion-row >
+      <ion-col align="center"> 
+      </ion-col>
+      <ion-col align="center">
+        <ion-icon ios="ios-call" md="md-call" (click)="navigateFooter('call')"></ion-icon>
+      </ion-col>
+      <ion-col align="center"> 
+        <ion-icon name="mail" (click)="navigateFooter('mail')"></ion-icon>
+      </ion-col>
+      <ion-col width-50 align="center">
+        <ion-icon ios="logo-facebook" md="logo-facebook" (click)="navigateFooter('facebook')"></ion-icon>
+      </ion-col>
+      <ion-col width-50 align="center"> 
+        <ion-icon name="logo-twitter" (click)="navigateFooter('twitter')"></ion-icon> 
+      </ion-col>
+      <ion-col width-50 align="center">
+        <ion-icon name="logo-youtube" (click)="navigateFooter('youtube')"></ion-icon>
+      </ion-col>
+      <ion-col width-50 align="center"> 
+        <ion-icon name="logo-chrome" (click)="navigateFooter('chrome')"></ion-icon> 
+      </ion-col>
+      <ion-col width-50 align="center">
+        <ion-icon ios="ios-compass" md="md-compass" (click)="navigateFooter('compass')"></ion-icon>
+      </ion-col>
+      <ion-col align="center"> 
+      </ion-col>
+    </ion-row>
+</ion-footer>

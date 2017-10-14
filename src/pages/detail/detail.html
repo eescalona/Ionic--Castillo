@@ -1,0 +1,60 @@
+<ion-header>
+
+  <ion-navbar>
+    <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" />
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-img width="100%" height="200" src={{item.image_url}} (click)="itemTapped('0')"></ion-img>
+  <h1>{{item.title}}</h1>
+  <p>
+  	{{item.description}}
+  </p>
+  <p>
+  	Estilo: {{item.style}}  &nbsp;&nbsp;&nbsp;&nbsp; Año: {{item.year}}
+  </p>
+  <p>
+  	Precio: {{item.price}} €
+  </p>
+  <p>
+    {{item.address}}
+  </p>
+  
+ <!-- <ion-grid>
+    <ion-row>
+    <ion-col width-50 *ngFor="let row of grid1">
+      <ion-item *ngFor="let r of row" (click)="itemTapped(r.id)">
+        <img [src]="r.url"/>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>-->
+
+  <ion-grid>
+    <ion-row *ngFor="let row of grid">
+      <ion-col width-50 *ngFor="let r of row" (click)="itemTapped(r.id)">
+        <img [src]="r.url"/>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
+    
+  <ion-grid>
+    <ion-row >
+    <ion-col width-25> 
+      </ion-col> 
+      <ion-col width-25 (click)="arrowTapped(item.prev_id)" align="center"> 
+        <ion-icon name="arrow-back" *ngIf="item.prev_id != 0"></ion-icon>
+      </ion-col>
+      <ion-col width-25 *ngIf="item.next_id != 0" (click)="arrowTapped(item.next_id)" align="center">
+      <ion-icon name="arrow-forward" ></ion-icon>
+      </ion-col>
+      <ion-col width-25> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
