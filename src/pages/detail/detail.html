@@ -17,8 +17,11 @@
   <p>
   	Estilo: {{item.style}}  &nbsp;&nbsp;&nbsp;&nbsp; Año: {{item.year}}
   </p>
-  <p>
+  <p *ngIf="item.price">
   	Precio: {{item.price}} €
+  </p>
+  <p *ngIf="!item.price">
+  	Precio a consultar.
   </p>
   <p>
     {{item.address}}
@@ -34,6 +37,7 @@
     </ion-row>
   </ion-grid>-->
 
+  <!-- Gallery -->
   <ion-grid>
     <ion-row *ngFor="let row of grid">
       <ion-col width-50 *ngFor="let r of row" (click)="itemTapped(r.id)">
@@ -41,7 +45,8 @@
       </ion-col>
     </ion-row>
   </ion-grid> 
-    
+  
+  <!-- Previous - Next -->
   <ion-grid>
     <ion-row >
     <ion-col width-25> 

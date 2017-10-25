@@ -7,7 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ProyectsPage } from '../pages/proyects/proyects';
 import { DetailPage } from '../pages/detail/detail';
 import { AboutPage } from '../pages/about/about';
-import { HtmlPage } from '../pages/html/html';
+import { MyFooterComponent } from '../components/my-footer/my-footer';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,7 +29,7 @@ import { HttpModule } from '@angular/http';
     DetailPage,
     ProyectsPage,
     AboutPage,
-    HtmlPage
+    MyFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +44,7 @@ import { HttpModule } from '@angular/http';
     DetailPage,
     ProyectsPage,
     AboutPage,
-    HtmlPage
+    MyFooterComponent
   ],
   providers: [
     StatusBar,
