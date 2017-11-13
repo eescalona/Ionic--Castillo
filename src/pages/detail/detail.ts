@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { GalleryModal } from 'ionic-gallery-modal';
+import { Storage } from '@ionic/Storage';
 
+import { PresupuestoPage } from '../presupuesto/presupuesto';
 import {CastilloServiceProvider } from '../../providers/castillo-service/castillo-service';
 
 @IonicPage()
@@ -10,43 +12,51 @@ import {CastilloServiceProvider } from '../../providers/castillo-service/castill
   templateUrl: 'detail.html',
   providers: [CastilloServiceProvider]
 })
+
 export class DetailPage {
-	public item;
+	public item = {image_url: '', id: 0, title:''};
 	public itemId;
+	public favorites;
+	private isFavorites: boolean;
 	public grid: any[][];
-//  public grid1: any[][];
 	public items: any[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private servicio: CastilloServiceProvider) {
-  	this.item = navParams.get("item");
+	constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, 
+							public ref: ChangeDetectorRef, private servicio: CastilloServiceProvider, 
+							public toast: ToastController, public storage: Storage) {
   	this.itemId = navParams.get("item_id");
-    
-  }
+		this.favorites = navParams.get("favorites"); 
+		this.isFavorites = navParams.get("isFavorites");   
 
-  ionViewWillEnter() {
-  	console.log('ionViewWillEnter DetailPage');
-    if(this.itemId != null){
-      this.getItem();
-      console.log('constructor DetailPage');
-    }
-  }
+		this.getItem();
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DetailPage');
-    if(this.itemId == null){
-      this.getGallery();
-    }
+  	console.log('constructor DetailPage');
   }
 
   getItem(){
+    if(this.isFavorites){
+			console.log('getFavorite');
+      this.servicio.getFavorite(this.itemId,this.favorites).map(res => res.json()).subscribe(
+        data => {
+					this.item = data.data;
+					this.getGallery();
+          },
+        err => console.log('getFavorite error'),
+        () => console.log('getFavorite ok')
+			);
+    }else{
       console.log('getItem');
     	this.servicio.getItem(this.itemId).map(res => res.json()).subscribe(
       		data => {
-        		this.item = data.data;
+						this.item = data.data;
+						console.log('getItem data')
+						this.getGallery();
+						console.log('getItem gallery')
         		},
         	err => console.log('getItem error'),
-        	() => this.getGallery()
-    	);
+					() => console.log('getItem ok')
+      );
+    }
   }
 
   getGallery(){
@@ -61,49 +71,26 @@ export class DetailPage {
   }
 
   getGrid(){
-      
-  	this.grid = Array(Math.ceil((this.items.length-1)/2));
+		let makeGrid = Array(Math.ceil((this.items.length-1)/2));
 
   	let rowNum = 0; //counter to iterate over the rows in the grid
 
 	 for (let i = 1; i < this.items.length; i+=2) { //iterate images
 
-      this.grid[rowNum] = Array(2); //declare two elements per row													
+			makeGrid[rowNum] = Array(2); //declare two elements per row													
       if (this.items[i]) { //check file URI exists
-			  this.grid[rowNum][0] = this.items[i]; //insert image
-        this.grid[rowNum][0].id = i;
+			  makeGrid[rowNum][0] = this.items[i]; //insert image
+        makeGrid[rowNum][0].id = i;
       }													
        if (i+1 < this.items.length && this.items[i+1]) { //repeat for the second image
-			  this.grid[rowNum][1] = this.items[i+1];
-         this.grid[rowNum][1].id = i+1;
+			  makeGrid[rowNum][1] = this.items[i+1];
+				makeGrid[rowNum][1].id = i+1;
        }else{
-         this.grid[rowNum][1] = { url: '', }; //insert url 
+				makeGrid[rowNum][1] = { url: '', }; //insert url 
        }
        rowNum++; //go on to the next row
-	  }
-
-		  console.log('getGrid');
-
-    //  this.grid1 = Array(2);
-
-    //  let rowNum1 = 0; //counter to iterate over the rows in the grid
-
-    //    this.grid1[0] = Array(Math.ceil((this.items.length-1)/2)); //declare two elements per row 
-    //    this.grid1[1] = Array(Math.ceil((this.items.length-1)/2)); //declare two elements per row 
-    //  for (let i = 1; i < this.items.length; i+=2) { //iterate images
-                         
-    //    if (this.items[i]) { //check file URI exists
-    //      this.grid1[0][rowNum1] = this.items[i]; //insert image
-    //      this.grid1[0][rowNum1].id = i;
-    //    }                         
-    //    if (i+1 < this.items.length && this.items[i+1]) { //repeat for the second image
-    //      this.grid1[1][rowNum1] = this.items[i+1];
-    //      this.grid1[1][rowNum1].id = i+1;
-    //    }else{
-    //      this.grid1[1][rowNum1] = { url: '', }; //insert url 
-    //    }
-    //    rowNum1++; //go on to the next row
-    //  }
+		}
+		this.grid = makeGrid; 
   }
 
 	itemTapped(item) {
@@ -117,7 +104,67 @@ export class DetailPage {
 
 	arrowTapped(newid) {
 	  this.navCtrl.pop();
-    this.navCtrl.push(DetailPage,{ item_id: newid, item: {image_url: ''} });
-	} 
+    this.navCtrl.push(DetailPage,{ item_id: newid, favorites: this.favorites, isFavorites: this.isFavorites});
+  } 
+  
+  presupuestoTapped(){
+    this.navCtrl.push(PresupuestoPage,{ subject: 'Catálogo: ' + this.item.title, title: 'Solicitar Presupuesto'});
+  }
 
+  isThisFavorite(id){
+		console.log('isItemFavorite ->' + id);
+		if(this.favorites.indexOf(id) != -1){
+					return true;
+				}else{
+					return false;
+				}
+	}
+
+	setFavorites(id){
+		if(this.isThisFavorite(id)){
+			//Delete item to bd
+			console.log('data deleted '+ id);			
+    	this.storage.get('myFavorites').then((data) => {
+    	  if(data != null)
+    	  {
+    	    data.splice(data.indexOf(id),1);
+					this.storage.set('myFavorites', data);
+					this.favorites= data;
+					this.ref.detectChanges();
+
+					this.toast.create({
+						message: `Eliminado de Mis Favoritos`,
+						duration: 3000
+					}).present();
+
+    	  }
+			});
+		}else{
+			//Add item to bd
+			console.log('data added '+ id);			
+    	this.storage.get('myFavorites').then((data) => {
+    	  if(data != null)
+    	  {
+    	    data.push(id);
+    	    this.storage.set('myFavorites', data);
+					this.favorites= data;
+					this.ref.detectChanges();
+					
+    	  }
+    	  else
+    	  {
+    	    let array = [];
+    	    array.push(id);
+    	    this.storage.set('myFavorites', array);
+					this.favorites= data;
+					this.ref.detectChanges();
+    	  }
+			});
+			
+			this.toast.create({
+				message: `Añadida a Mis Favoritos`,
+				duration: 3000
+			}).present();
+		}
+	}
 }

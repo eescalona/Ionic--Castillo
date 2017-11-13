@@ -11,23 +11,16 @@ import { ProyectsPage } from '../proyects/proyects';
 export class HomePage {
 
 	public data: any[];
-	public items = [{ id:'0', url:''}];
+	public items = [{ id:'0', url:'http://castillococinas.es/data/uploads/slide/1.jpg'},
+					{ id:'1', url:'http://castillococinas.es/data/uploads/armarios-benno/slide-armario-132.jpg'},
+					{ id:'2', url:'http://castillococinas.es/data/uploads/slide/3.jpg'},
+					{ id:'3', url:'http://castillococinas.es/data/uploads/armarios-benno/slide-benno2012-15.jpg'},
+					{ id:'4', url:'http://castillococinas.es/data/uploads/slide/6.jpg'},
+					{ id:'5', url:'http://castillococinas.es/data/uploads/slide/7777.jpg'}];
 
-	  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {  
-		this.getSlides() 				
-  	}
+	constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) { 			
+	}
 	  
-  	getSlides(){
-  		console.log('getSlides')
-  		this.items = [
-		{ id:'0', url:'http://castillococinas.es/data/uploads/slide/1.jpg'},
-		{ id:'1', url:'http://castillococinas.es/data/uploads/armarios-benno/slide-armario-132.jpg'},
-		{ id:'2', url:'http://castillococinas.es/data/uploads/slide/3.jpg'},
-		{ id:'3', url:'http://castillococinas.es/data/uploads/armarios-benno/slide-benno2012-15.jpg'},
-		{ id:'4', url:'http://castillococinas.es/data/uploads/slide/6.jpg'},
-		{ id:'5', url:'http://castillococinas.es/data/uploads/slide/7777.jpg'}];
-  	}
-
 	itemTapped(item) {
 		let modal = this.modalCtrl.create(GalleryModal, {
       		photos: this.items,
@@ -38,6 +31,6 @@ export class HomePage {
 	}
 
 	navigate(typeParam:string) {
-		this.navCtrl.push(ProyectsPage,{ typeParam: typeParam});
+		this.navCtrl.setRoot(ProyectsPage,{ typeParam: typeParam});
 	}
 }

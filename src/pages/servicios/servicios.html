@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Servicios</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-col align="center">
+    <div>
+      <img class= "center img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="75%" height="75%"/>
+    </div>
+  </ion-col>
+
+  <p>
+    Muebles Castillo les ofrece
+  </p>
+
+  <p>- Muebles de cocina (cualquier material, modernos, rústicos, clásicos).<br/>
+  - Puertas de exterior de seguridad, blindadas y de interior o de paso con (cristales, correderas, ciegas, dobles).  <br/>
+  - Armarios y vestidores (frontales, revestimientos, completos).<br/>
+  - Encimeras de mármol, granito, silestone, compac.<br/>
+  - Electrodomésticos.</p>
+    
+  <p>Si tiene una idea nosotros la haremos realidad, encontrar la cocina de sus sueños puede ser una experiencia apasionante.
+    
+  <p>Muebles Castillo realiza presupuesto y diseño sin compromiso, sólo necesitamos un croquis de la cocina con la forma y medidas de las paredes, donde se situan las instalaciones básicas como toma de agua, salida de humos, enchufes, etc.</p>
+    
+  <p>Tenemos a su servicio un equipo experto en amueblamiento y decoración que le atenderá en todo momento dándole todo tipo de posibilidades y soluciones, así como el mejor asesoramiento en su compra siempre teniendo en cuenta las mejores opciones adaptables a las necesidades y a los gustos de cada cliente.</p>
+    
+  <p>Nuestra fábrica empieza a darle forma a su cocina para que en el menor plazo posible pueda disfrutar de ella.</p>
+    
+  <p>Una vez fabricada coordinaremos con el cliente la entrega y el montaje hasta llegar a su terminación completa, incluyendo la puesta en funcionmiento de todos los aparatos eléctricos.</p>
+    
+  <p>Ahora es el turno de disfrutar de las ventajas y comodidades que supone ser usuario de Muebles Castillo.</p>
+    
+  <p>Una vez esté disfrutando de nuestros productos seguimos dándoles nuestro servicio postventa para responder a todas sus dudas y solucionarle cualquier problema para que así quede totalmente satisfecho con su compra.
+    
+  <p>Nuestras cocinas están garantizadas tanto por la calidad de sus materiales como por sus cuidados.</p>
+    
+  <p>Nuestros muebles tienen una garantía de 6 años.</p>
+
+  <ion-col align="center" (click)="itemTapped()">
+    <img class= "center img-bg" [src]="items[0].url" width="95%" height="95%"/>
+  </ion-col>
+</ion-content>

@@ -1,8 +1,14 @@
 <ion-menu [content]="content">
   <ion-header >
     <ion-toolbar>
-      <ion-title ><div>
-  <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" /></div></ion-title>
+      <ion-title >
+        <div *ngIf="!isIOS">
+          <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" />
+        </div>
+        <div *ngIf="isIOS">
+          <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="70%" height="70%" align="right" />
+        </div>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 

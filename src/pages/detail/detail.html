@@ -10,32 +10,41 @@
 <ion-content padding>
 
   <ion-img width="100%" height="200" src={{item.image_url}} (click)="itemTapped('0')"></ion-img>
-  <h1>{{item.title}}</h1>
-  <p>
-  	{{item.description}}
-  </p>
-  <p>
-  	Estilo: {{item.style}}  &nbsp;&nbsp;&nbsp;&nbsp; Año: {{item.year}}
-  </p>
-  <p *ngIf="item.price">
-  	Precio: {{item.price}} €
-  </p>
-  <p *ngIf="!item.price">
-  	Precio a consultar.
-  </p>
-  <p>
-    {{item.address}}
-  </p>
-  
- <!-- <ion-grid>
-    <ion-row>
-    <ion-col width-50 *ngFor="let row of grid1">
-      <ion-item *ngFor="let r of row" (click)="itemTapped(r.id)">
-        <img [src]="r.url"/>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>-->
+  <ion-item>
+    <h1>{{item.title}}</h1>
+    <p>
+    	{{item.description}}
+    </p>
+    <p>
+    	Estilo: {{item.style}}  &nbsp;&nbsp;&nbsp;&nbsp; Año: {{item.year}}
+    </p>
+    <p *ngIf="item.price">
+    	Precio: {{item.price}} €
+    </p>
+    <p *ngIf="!item.price">
+    	Precio a consultar.
+    </p>
+    <p>
+      {{item.address}}
+    </p>
+  </ion-item>
+
+  <!-- Presupuesto & Favorite -->
+  <ion-item >
+    <ion-col text-left>
+      <button ion-button clear small color="dark" (click)="presupuestoTapped()" icon-start>
+        <ion-icon ios="ios-chatboxes" md="md-chatboxes"></ion-icon>
+        Presupuesto            
+      </button>
+    </ion-col>
+    <ion-col text-right>
+      <button ion-button clear small color="dark" (click)="setFavorites(item.id)" icon-start>
+            <ion-icon name="star-outline" color="bright" *ngIf="item != null && !isThisFavorite(item.id)" ></ion-icon>
+            <ion-icon name="star" color="bright" *ngIf="item != null && isThisFavorite(item.id)" ></ion-icon>   
+        Favorito
+      </button>
+    </ion-col>   
+  </ion-item>
 
   <!-- Gallery -->
   <ion-grid>

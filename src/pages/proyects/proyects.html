@@ -9,12 +9,57 @@
 </ion-header>
 
 <ion-content padding>
-  		<ion-card *ngFor="let repo of foundRepos" (click)="itemTapped($event, repo)">
-        <ion-card-header>
-          <ion-title>{{ repo.title }}</ion-title>
-        </ion-card-header>
-        <ion-card-content>
-          <img width="100%" height="100%" [src]="repo.image_url"/>
-        </ion-card-content>
-  		</ion-card>
+
+  <h1 *ngIf="isBlogs || isPromotions || isFavorites" align="center">{{ title }}</h1>
+  <h1 *ngIf="isCatalogs" align="center">Catálogos</h1>
+  <h6 *ngIf="isFavorites && !foundRepos" align="center">No tienes favoritos seleccionados.</h6>
+  <h6 *ngIf="isPromotions && !foundRepos" align="center">No hay promociones disponibles.</h6>
+
+  <ion-card *ngFor="let repo of foundRepos">
+    <ion-card-content>
+      <h1 (click)="itemTapped($event, repo)">{{ repo.title }}</h1>
+      <img width="100%" height="100%" [src]="repo.image_url" (click)="itemTapped($event, repo)"/>
+      <p *ngIf="isBlogs" (click)="itemTapped($event, repo)">{{ repo.description }}</p>
+      
+      <!-- Haznos tu pedido para Catalogos -->
+      <ion-row no-padding  *ngIf="isCatalogs">
+        <ion-col text-center>
+          <button ion-button round outline small color="dark" (click)="presupuestoTapped(repo.title)" icon-start>
+            <ion-icon ios="ios-chatboxes" md="md-chatboxes"></ion-icon>
+            Haznos tu pedido
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <!-- Reserva tu promoción para Promociones -->
+      <ion-row no-padding *ngIf="isPromotions">
+        <ion-col text-center>
+          <button ion-button round outline small color="dark" (click)="presupuestoTapped(repo.title)" icon-start>
+            <ion-icon ios="ios-chatboxes" md="md-chatboxes"></ion-icon>
+           Reserva tu promoción
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <!-- Favorite y Share: proyectos o Mis favoritos -->
+      <ion-row no-padding *ngIf="isProyects || isFavorites">     
+        <ion-col text-center>          
+          <button ion-button clear small color="dark" icon-start (click)="sharing()">
+            <ion-icon name='share-alt'></ion-icon>
+            Share
+          </button>
+        </ion-col>
+        <ion-col text-right>
+          <button ion-button clear small color="dark" (click)="setFavorites(repo)" icon-start>
+            <ion-icon name="star-outline" color="bright" *ngIf="!isItemFavorite(repo.id)" ></ion-icon>
+            <ion-icon name="star" color="bright" *ngIf="isItemFavorite(repo.id)" ></ion-icon>            
+            Favorito
+          </button>
+        </ion-col>
+      </ion-row>
+      
+      <my-share *ngIf="isSharing" [item]=repo (click)="sharing()"></my-share>
+
+    </ion-card-content>
+  </ion-card>
 </ion-content>

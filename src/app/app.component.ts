@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ProyectsPage } from '../pages/proyects/proyects';
 import { AboutPage } from '../pages/about/about';
-import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser';
+import { ServiciosPage } from '../pages/servicios/servicios';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,36 +18,21 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-	options : InAppBrowserOptions = {
-		location : 'yes',//Or 'no' 
-		hidden : 'no', //Or  'yes'
-		clearcache : 'yes',
-		clearsessioncache : 'yes',
-		zoom : 'no',//Android only ,shows browser zoom controls 
-		hardwareback : 'yes',
-		mediaPlaybackRequiresUserAction : 'no',
-		shouldPauseOnSuspend : 'no', //Android only 
-		closebuttoncaption : 'Close', //iOS only
-		disallowoverscroll : 'no', //iOS only 
-		toolbar : 'yes', //iOS only 
-		enableViewportScale : 'no', //iOS only 
-		allowInlineMediaPlayback : 'no',//iOS only 
-		presentationstyle : 'pagesheet',//iOS only 
-		fullscreen : 'yes',//Windows only    
-  };
-  
-  constructor(private iab: InAppBrowser, public platform: Platform,  private splashScreen: SplashScreen,
+  isIOS: any = false;
+
+  constructor(public platform: Platform,  private splashScreen: SplashScreen,
     public statusBar: StatusBar) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Inicio', component: HomePage},
+      { title: 'Mis favoritos', component: ProyectsPage},
       { title: 'Cocinas', component: ProyectsPage},
       { title: 'Armarios', component: ProyectsPage},
       { title: 'Catalogos', component: ProyectsPage},
       { title: 'Promociones', component: ProyectsPage},            
-      { title: 'Servicios', component: ProyectsPage},
+      { title: 'Servicios', component: ServiciosPage},
       { title: 'Blog', component: ProyectsPage},
       { title: 'Conocenos', component: AboutPage}
     ];
@@ -61,25 +46,20 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+    if (this.platform.is('ios')) {
+      // This will only when on iOS
+      this.isIOS = true;
+    }
+    
   }
 
   openPage(page) {
-    if(page.title == 'Cocinas' || page.title == 'Armarios' 
-        || page.title == 'Catalogos' || page.title == 'Promociones')
+    if(page.title == 'Cocinas' || page.title == 'Armarios' || page.title == 'Catalogos'
+        || page.title == 'Promociones' || page.title == 'Mis favoritos' || page.title == 'Blog')
     {
-      this.nav.setRoot(page.component, { typeParam: page.title});
+      this.nav.setRoot(page.component, {typeParam: page.title});
     }else{
-      if(page.title == 'Servicios')
-      {
-        this.iab.create("http://castillococinas.es/producto-y-servicios/", '_self', this.options);
-      }else{
-        if(page.title == 'Blog')
-        {
-          this.iab.create("http://castillococinas.es/blog/", '_self', this.options);
-        }else{
-          this.nav.setRoot(page.component);     
-        }     
-      }
+      this.nav.setRoot(page.component);  
     }  
   }
 }
