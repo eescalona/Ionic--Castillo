@@ -37,13 +37,18 @@
         Presupuesto            
       </button>
     </ion-col>
+    <ion-col text-center>          
+      <button ion-button clear small color="dark" icon-start (click)="setSharing()">
+        <ion-icon name='share'></ion-icon>
+      </button>
+    </ion-col>
     <ion-col text-right>
       <button ion-button clear small color="dark" (click)="setFavorites(item.id)" icon-start>
             <ion-icon name="star-outline" color="bright" *ngIf="item != null && !isThisFavorite(item.id)" ></ion-icon>
-            <ion-icon name="star" color="bright" *ngIf="item != null && isThisFavorite(item.id)" ></ion-icon>   
-        Favorito
+            <ion-icon name="star" color="bright" *ngIf="item != null && isThisFavorite(item.id)" ></ion-icon> 
       </button>
     </ion-col>   
+    <my-share *ngIf="isSharing()" [item]=item (click)="setSharing()"></my-share>
   </ion-item>
 
   <!-- Gallery -->

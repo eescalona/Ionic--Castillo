@@ -58,6 +58,6 @@
         </ion-col>
       </ion-row>
     </ion-card-content>
-      <my-share *ngIf="isSharing(repo.id)" [item]=repo (click)="sharing()"></my-share>
+      <my-share *ngIf="isSharing(repo.id)" [item]=repo (click)="setSharing(repo.id)"></my-share>
   </ion-card>
 </ion-content>

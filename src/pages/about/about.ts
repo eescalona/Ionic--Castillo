@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 
 @IonicPage()
@@ -9,10 +10,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AboutPage {
 
-  	constructor( public navCtrl: NavController, public navParams: NavParams) {
+  	constructor( public navCtrl: NavController, public navParams: NavParams, private iab: InAppBrowser) {
   	}
 
   	ionViewDidLoad() {
     	console.log('ionViewDidLoad AboutPage');
-  	}
+		}
+		
+		web(){
+			this.iab.create('http://castillococinas.es/', '_system');
+		}
 }

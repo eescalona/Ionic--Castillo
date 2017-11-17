@@ -20,6 +20,7 @@ export class DetailPage {
 	private isFavorites: boolean;
 	public grid: any[][];
 	public items: any[];
+	private sharing = false;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, 
 							public ref: ChangeDetectorRef, private servicio: CastilloServiceProvider, 
@@ -166,5 +167,13 @@ export class DetailPage {
 				duration: 3000
 			}).present();
 		}
+	}
+
+	setSharing(){
+		this.sharing = !this.sharing;
+	}
+
+	isSharing(){
+		return this.sharing;
 	}
 }

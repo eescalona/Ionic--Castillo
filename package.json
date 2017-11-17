@@ -44,7 +44,8 @@
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.12",
-    "cordova-browser": "~5.0.1"
+    "cordova-browser": "~5.0.1",
+    "cordova-ios": "~4.5.3"
   },
   "devDependencies": {
     "@ionic/app-scripts": "^3.1.2",
@@ -65,7 +66,8 @@
     },
     "platforms": [
       "android",
-      "browser"
+      "browser",
+      "ios"
     ]
   }
 }

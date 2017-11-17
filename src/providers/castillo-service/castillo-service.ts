@@ -23,7 +23,7 @@ export class CastilloServiceProvider {
           let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/catalogs`);
           return repos;
         }else{
-          let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/projects/categories/${typeProyect}`);
+          let repos = this.http.get(`http://cocinascastillodev.escalonasoftware.com/api/projects/categories/${typeProyect}`);
           return repos;
         }
       }

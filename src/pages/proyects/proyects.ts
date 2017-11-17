@@ -76,9 +76,11 @@ export class ProyectsPage {
 						this.foundRepos = data.data;
 					}
 			},
-			err => {this.toast.create({
+			err => {
+					console.log('getProyects '+err);
+					this.toast.create({
 					message: `get Proyects error: `+err,
-					duration: 1000
+					duration: 4000
 					}).present();	
 			},
 			() => console.log('get Proyects ')
@@ -181,14 +183,10 @@ export class ProyectsPage {
 	}
 
 	itemTapped(event, item){
-		if(this.isCatalogs || this.isPromotions)
+		if(this.isCatalogs || this.isPromotions || this.isBlogs)
 		{
 			this.iab.create(item.url, '_system', this.options);
-		}
-		if(this.isBlogs)
-		{
-			this.iab.create(item.url, '_self', this.options);
-		}   
+		}  
 		if(this.isFavorites){
 			this.navCtrl.push(DetailPage,{ item_id: item.id, favorites: this.favorites, isFavorites: this.isFavorites});				
 		}
