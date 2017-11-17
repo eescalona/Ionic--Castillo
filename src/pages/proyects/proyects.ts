@@ -19,7 +19,6 @@ import { PresupuestoPage } from '../presupuesto/presupuesto';
 export class ProyectsPage {
 
 	public foundRepos;
-
 	public title:string;
 	private isProyects: boolean;
 	private isCatalogs: boolean;
@@ -27,7 +26,7 @@ export class ProyectsPage {
 	private isFavorites: boolean;
 	private isBlogs: boolean;
 	private favorites = [];
-	private isSharing = false;
+	private sharing = 0;
 
 	options : InAppBrowserOptions = {
 		location : 'yes',//Or 'no' 
@@ -70,13 +69,18 @@ export class ProyectsPage {
   	getProyects(){
 		console.log('getProyects ');
 		this.servicio.getProyects(this.title).map(res => res.json()).subscribe(
-		data => {
-			this.foundRepos = data.data;
+			data => {
+					if(data.data.length == 0){
+						this.foundRepos = null;
+					}else{
+						this.foundRepos = data.data;
+					}
 			},
 			err => {this.toast.create({
-				message: `get Proyects error: `+err,
-				duration: 1000
-			}).present();	},
+					message: `get Proyects error: `+err,
+					duration: 1000
+					}).present();	
+			},
 			() => console.log('get Proyects ')
 		);
   	}
@@ -195,14 +199,21 @@ export class ProyectsPage {
 
 	presupuestoTapped(title){
 		if(this.isCatalogs){
-			this.navCtrl.push(PresupuestoPage,{ subject: 'Catálogo: ' + title, title: 'Haznos tu pedido'});
+			this.navCtrl.push(PresupuestoPage,{ subject: 'Pedido Catálogo: ' + title, title: 'Haznos tu pedido'});
 		}else{
-			this.navCtrl.push(PresupuestoPage,{ subject: 'Consulta Promoción: ' + title, title: 'Reserva tu promoción'});
+			this.navCtrl.push(PresupuestoPage,{ subject: 'Reserva Promoción: ' + title, title: 'Reserva tu promoción'});
 		}
 	}
 
-	sharing(){
-		this.isSharing = !this.isSharing;
-		console.log('share Tapped ');
+	setSharing(id){
+		if(this.sharing == id){
+			this.sharing = 0;
+		}else{
+			this.sharing = id;
+		}
+	}
+
+	isSharing(id){
+		return this.sharing == id;
 	}
 }

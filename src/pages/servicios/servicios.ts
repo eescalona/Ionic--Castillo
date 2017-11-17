@@ -10,7 +10,7 @@ import { GalleryModal } from 'ionic-gallery-modal';
 })
 export class ServiciosPage {
 
-  public items = [{ id:'0', url:'http://castillococinas.es/data/uploads/diez-razones-para-elegir-antalia.jpg'}];
+  public items = [{ id:'0', url:'http://cocinascastillo.escalonasoftware.com/public/images/assets/diez-razones-para-elegir-antalia.jpg'}];
   
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
   }

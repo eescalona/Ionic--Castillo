@@ -108,7 +108,7 @@ export class DetailPage {
   } 
   
   presupuestoTapped(){
-    this.navCtrl.push(PresupuestoPage,{ subject: 'Catálogo: ' + this.item.title, title: 'Solicitar Presupuesto'});
+    this.navCtrl.push(PresupuestoPage,{ subject: 'Solicita Presupuesto: ' + this.item.title, title: 'Solicitar Presupuesto'});
   }
 
   isThisFavorite(id){
@@ -156,7 +156,7 @@ export class DetailPage {
     	    let array = [];
     	    array.push(id);
     	    this.storage.set('myFavorites', array);
-					this.favorites= data;
+					this.favorites= array;
 					this.ref.detectChanges();
     	  }
 			});

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { GalleryModal } from 'ionic-gallery-modal';
 import { ProyectsPage } from '../proyects/proyects';
+import { DescargarPage } from '../descargar/descargar';
 
 @IonicPage()
 @Component({
@@ -10,6 +11,7 @@ import { ProyectsPage } from '../proyects/proyects';
 })
 export class HomePage {
 
+	private isApp;
 	public data: any[];
 	public items = [{ id:'0', url:'http://castillococinas.es/data/uploads/slide/1.jpg'},
 					{ id:'1', url:'http://castillococinas.es/data/uploads/armarios-benno/slide-armario-132.jpg'},
@@ -18,7 +20,15 @@ export class HomePage {
 					{ id:'4', url:'http://castillococinas.es/data/uploads/slide/6.jpg'},
 					{ id:'5', url:'http://castillococinas.es/data/uploads/slide/7777.jpg'}];
 
-	constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) { 			
+	constructor(private modalCtrl: ModalController, public navCtrl: NavController, 
+				 public navParams: NavParams) { 			
+	}
+
+	ionViewWillEnter(){
+		this.isApp = (!document.URL.startsWith('http') || document.URL.startsWith('http://localhost:8100'));
+		if(!this.isApp){
+			this.showDescargar();
+		}
 	}
 	  
 	itemTapped(item) {
@@ -32,5 +42,10 @@ export class HomePage {
 
 	navigate(typeParam:string) {
 		this.navCtrl.setRoot(ProyectsPage,{ typeParam: typeParam});
+	}
+
+	showDescargar(){
+		let modal = this.modalCtrl.create(DescargarPage);
+	  	modal.present();
 	}
 }

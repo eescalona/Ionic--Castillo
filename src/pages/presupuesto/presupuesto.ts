@@ -51,7 +51,8 @@ export class PresupuestoPage {
 
   enviarEmail(){
     			
-    let datos = { name: this.name.value, email: this.email.value, phone:this.phone.value};
+    let datos = { name: this.name.value, mail: this.email.value, phone:this.phone.value, 
+                  subject:this.subject.value, body:this.body.value};
     console.log('enviarEmail Datos: ' + JSON.stringify(datos));
 
     //Add datos to bd
@@ -100,7 +101,7 @@ export class PresupuestoPage {
         if(data != null){
           let datos = JSON.parse(data)
           this.name.setValue(datos.name);
-          this.email.setValue(datos.email);
+          this.email.setValue(datos.mail);
           this.phone.setValue(datos.phone);
         }		
       },

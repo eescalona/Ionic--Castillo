@@ -12,11 +12,11 @@ export class CastilloServiceProvider {
 
 	getProyects(typeProyect){
     if(typeProyect == 'Blog'){
-      let repos = this.http.get(`http://cocinascastillodev.escalonasoftware.com/api/blogs`);
+      let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/blogs`);
       return repos;
     }else{
       if(typeProyect == 'Promociones'){
-        let repos = this.http.get(`http://cocinascastillodev.escalonasoftware.com/api/promotions`);
+        let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/promotions`);
         return repos;
       }else{
         if(typeProyect == 'Catalogos'){
@@ -31,12 +31,12 @@ export class CastilloServiceProvider {
   }
   
   getFavorites(items){
-    let repos = this.http.get(`http://cocinascastillodev.escalonasoftware.com/api/projects/favorites/${items}`);
+    let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/projects/favorites/${items}`);
     return repos;
   }
 
   getFavorite(itemId, items){
-    let repos = this.http.get(`http://cocinascastillodev.escalonasoftware.com/api/projects/favorite/${itemId}/${items}`);
+    let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/projects/favorite/${itemId}/${items}`);
     return repos;
   }
 
@@ -58,7 +58,7 @@ export class CastilloServiceProvider {
       });
       let options = new RequestOptions({ headers: headers });
       
-    let repos = this.http.post(`http://cocinascastillodev.escalonasoftware.com/api/mail`,JSON.stringify(item), options);
+    let repos = this.http.post(`http://cocinascastillo.escalonasoftware.com/api/mail`,JSON.stringify(item), options);
     return repos;
   }
 }

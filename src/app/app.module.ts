@@ -27,6 +27,7 @@ import { HttpModule } from '@angular/http';
 
 import { IonicStorageModule } from '@ionic/Storage';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { DescargarPage } from '../pages/descargar/descargar';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     ServiciosPage,
     AboutPage,
     PresupuestoPage,
+    DescargarPage,
     MyShareComponent,
     MyFooterComponent
   ],
@@ -56,6 +58,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     ServiciosPage,
     AboutPage,
     PresupuestoPage,
+    DescargarPage,
     MyShareComponent,
     MyFooterComponent
   ],

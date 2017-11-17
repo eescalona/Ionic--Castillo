@@ -44,9 +44,9 @@
       <!-- Favorite y Share: proyectos o Mis favoritos -->
       <ion-row no-padding *ngIf="isProyects || isFavorites">     
         <ion-col text-center>          
-          <button ion-button clear small color="dark" icon-start (click)="sharing()">
-            <ion-icon name='share-alt'></ion-icon>
-            Share
+          <button ion-button clear small color="dark" icon-start (click)="setSharing(repo.id)">
+            <ion-icon name='share'></ion-icon>
+            Compartir
           </button>
         </ion-col>
         <ion-col text-right>
@@ -57,9 +57,7 @@
           </button>
         </ion-col>
       </ion-row>
-      
-      <my-share *ngIf="isSharing" [item]=repo (click)="sharing()"></my-share>
-
     </ion-card-content>
+      <my-share *ngIf="isSharing(repo.id)" [item]=repo (click)="sharing()"></my-share>
   </ion-card>
 </ion-content>
