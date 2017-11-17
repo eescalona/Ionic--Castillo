@@ -55,13 +55,5 @@ export class MyShareComponent {
 				console.error('share instagram error ' + err);						
 			});
 		}
-		if(type=='sms'){
-			this.sharing.shareViaSMS(this.item.title + '\n Descubrelo en http://appcocinascastillo.escalonasoftware.com/',null)
-			.then(()=>{
-				console.log('share sms');		
-			}).catch((err) => {
-				console.error('share sms error ' + err);						
-			});
-		}
 	}
 }
