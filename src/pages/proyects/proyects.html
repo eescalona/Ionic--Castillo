@@ -3,15 +3,20 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" />
+    <div>
+      <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" />
+    </div>
+    <div *ngIf="isBlogs || isPromotions || isFavorites || isProyects" align="center">
+      <ion-title>{{ title }}</ion-title>
+    </div>
+    <div *ngIf="isCatalogs" align="center">
+      <ion-title >Catálogos</ion-title>
+    </div>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
 
-  <h1 *ngIf="isBlogs || isPromotions || isFavorites" align="center">{{ title }}</h1>
-  <h1 *ngIf="isCatalogs" align="center">Catálogos</h1>
   <h6 *ngIf="isFavorites && !foundRepos" align="center">No tienes favoritos seleccionados.</h6>
   <h6 *ngIf="isPromotions && !foundRepos" align="center">No hay promociones disponibles.</h6>
 

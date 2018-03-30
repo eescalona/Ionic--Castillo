@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController } from 'ionic-angular';
 import { InAppBrowserOptions, InAppBrowser } from '@ionic-native/in-app-browser';
 
-@IonicPage()
 @Component({
   selector: 'page-descargar',
   templateUrl: 'descargar.html',
@@ -33,7 +32,7 @@ export class DescargarPage {
 
 	openDescargar(type: string){
 		if(type=='ios'){
-			this.iab.create('https://www.apple.com/itunes/charts/free-apps/', '_system', this.options);
+			this.iab.create('https://www.apple.com/us/search/cocinas-castillo?src=globalnav', '_system', this.options);
 		}else{
 			this.iab.create('https://play.google.com/store/apps/details?id=escalonasoftware.cocinascastillo', '_system', this.options);      
 		}

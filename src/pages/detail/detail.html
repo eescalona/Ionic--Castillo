@@ -1,33 +1,33 @@
 <ion-header>
-
   <ion-navbar>
-    <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" />
+    <div *ngIf="!isIOS">
+      <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" />
+    </div>
+    <div *ngIf="isIOS">
+      <ion-title>
+        <img class="img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="40%" height="40%"/>
+      </ion-title>
+    </div>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
 
-  <ion-img width="100%" height="200" src={{item.image_url}} (click)="itemTapped('0')"></ion-img>
-  <ion-item>
-    <h1>{{item.title}}</h1>
-    <p>
-    	{{item.description}}
-    </p>
-    <p>
-    	Estilo: {{item.style}}  &nbsp;&nbsp;&nbsp;&nbsp; Año: {{item.year}}
-    </p>
-    <p *ngIf="item.price">
-    	Precio: {{item.price}} €
-    </p>
-    <p *ngIf="!item.price">
-    	Precio a consultar.
-    </p>
-    <p>
-      {{item.address}}
-    </p>
-  </ion-item>
+  <ion-img width="100%" height="200" src={{item.image_url}} (click)="itemTapped('0')"></ion-img> 
+  <h1>{{item.title}}</h1>
+  <p>
+    {{item.description}}
+  </p>
+  <p>
+    Estilo: {{item.style}}  &nbsp;&nbsp;&nbsp;&nbsp; Año: {{item.year}}
+  </p>
+  <p *ngIf="item.price">
+    Precio: {{item.price}} €
+  </p>
+  <p>
+    Lugar: {{item.address}}
+  </p>
 
   <!-- Presupuesto & Favorite -->
   <ion-item >

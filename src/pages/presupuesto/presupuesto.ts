@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Storage } from '@ionic/Storage';
 import { CastilloServiceProvider } from '../../providers/castillo-service/castillo-service';
+import { DatosPage } from '../datos/datos';
 
-
-@IonicPage()
 @Component({
   selector: 'page-presupuesto',
   templateUrl: 'presupuesto.html',
@@ -14,33 +13,31 @@ import { CastilloServiceProvider } from '../../providers/castillo-service/castil
 export class PresupuestoPage {
 
   public presupuestoForm: FormGroup;
-  name: AbstractControl;
-  email: AbstractControl;
-  phone: AbstractControl;
-  subject: AbstractControl;
+  subject: string;
   body: AbstractControl;
   title: string;
+  name: string;
+  email: string;
+  phone: string;
+  IsPromotion: boolean = false;
+  IsCatalog: boolean = false;
+	isIOS: any = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private servicio: CastilloServiceProvider,
-              public _form:FormBuilder, public toast: ToastController, public storage: Storage,) {
+              public platform: Platform, public _form:FormBuilder, public toast: ToastController, public storage: Storage) {
     
     this.presupuestoForm = this._form.group({
-      name:['',Validators.required],
-      email:['',Validators.compose([Validators.maxLength(70), Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'), Validators.required])],
-      phone:['',[Validators.required,  Validators.pattern('[0-9]*'),
-                Validators.minLength(9), Validators.maxLength(9)]],
-      subject:['',Validators.required],
       body:['',Validators.required]
     });
 
-    this.name = this.presupuestoForm.controls['name'];
-    this.email = this.presupuestoForm.controls['email'];
-    this.phone = this.presupuestoForm.controls['phone'];
-    this.subject = this.presupuestoForm.controls['subject'];
     this.body = this.presupuestoForm.controls['body'];
 
-    this.subject.setValue(navParams.get("subject"));
+    this.subject=navParams.get("subject");
     this.title=navParams.get("title");
+
+    if (this.platform.is('ios')) {
+      this.isIOS = true;
+    }
 
     this.cargarDatos();
   }
@@ -50,59 +47,65 @@ export class PresupuestoPage {
   }
 
   enviarEmail(){
-    			
-    let datos = { name: this.name.value, mail: this.email.value, phone:this.phone.value, 
-                  subject:this.subject.value, body:this.body.value};
-    console.log('enviarEmail Datos: ' + JSON.stringify(datos));
+    if(this.emailValid()){ 
+      if(this.name == null){
+        this.navCtrl.push(DatosPage,{ subject: this.subject, value: this.body.value})	;
+      }else{
 
-    //Add datos to bd
-    this.storage.get('myDatos').then((data) => {
-        if(data != null)
-        {
-          this.storage.set('myDatos', JSON.stringify(datos));
-        }
-        else
-        {
-          this.storage.set('myDatos', JSON.stringify(datos));
-        }
-    });
+        let datos = { name: this.name, mail: this.email, phone:this.phone, 
+                      subject:this.subject, 
+                      body:this.body.value};
+        console.log('enviarEmail Datos: ' + JSON.stringify(datos));
 
-    // Send Mail
-    this.servicio.postMail(datos).map(res => res.json()).subscribe(
-      data => { // Notification to user
-                this.toast.create({
-                  message: `Solicitud realizada.`,
-                  duration: 2000
-                }).present();
-                // Volvemos a la pagina anterior.
-                this.navCtrl.pop();
-        },
-      err => {// Notification to user
-              this.toast.create({
-                message: `Error realizando la solicitud.`,
-                duration: 2000
-              }).present();},
-      () => { console.log('postMail done') }
-    );
-  }
+        //Add datos to bd
+        this.storage.get('myDatos').then((data) => {
+            if(data != null)
+            {
+              this.storage.set('myDatos', JSON.stringify(datos));
+            }
+            else
+            {
+              this.storage.set('myDatos', JSON.stringify(datos));
+            }
+        });
 
-  borrarEmail(){
-    this.name.reset();
-    this.email.reset();
-    this.phone.reset();
-    this.body.reset();
-    console.log('borrarTapped PresupuestoPage');
+        // Send Mail
+        this.servicio.postMail(datos).map(res => res.json()).subscribe(
+          data => { // Notification to user
+                    this.toast.create({
+                      message: `Solicitud realizada.`,
+                      duration: 2000
+                    }).present();
+                    // Volvemos a la pagina anterior.
+                    this.navCtrl.pop();
+            },
+          err => {// Notification to user
+                  this.toast.create({
+                    message: `Error realizando la solicitud.`,
+                    duration: 2000
+                  }).present();},
+          () => { console.log('postMail done') }
+        );
+      }
+    }
   }
 
   cargarDatos(){
+    if(this.title=="Reserva tu promoción"){
+      // this.body.setValue(this.subject.value);
+      this.IsPromotion = true;
+    }
+    if(this.title=="Haznos tu pedido"){
+      this.IsCatalog = true;
+    }
     this.storage.get('myDatos').then(
       (data) => {
         console.log('cargarDatos '+ data);
         if(data != null){
           let datos = JSON.parse(data)
-          this.name.setValue(datos.name);
-          this.email.setValue(datos.mail);
-          this.phone.setValue(datos.phone);
+          this.name = datos.name;
+          this.email = datos.mail;
+          this.phone = datos.phone;
         }		
       },
       err =>{ 

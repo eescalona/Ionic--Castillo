@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
+import { NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/Storage';
 
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser';
@@ -8,8 +8,6 @@ import { DetailPage } from '../detail/detail';
 import {CastilloServiceProvider } from '../../providers/castillo-service/castillo-service';
 import { PresupuestoPage } from '../presupuesto/presupuesto';
 
-
-@IonicPage()
 @Component({
   selector: 'page-proyects',
   templateUrl: 'proyects.html',
@@ -27,6 +25,7 @@ export class ProyectsPage {
 	private isBlogs: boolean;
 	private favorites = [];
 	private sharing = 0;
+	isIOS: any = false;
 
 	options : InAppBrowserOptions = {
 		location : 'yes',//Or 'no' 
@@ -56,6 +55,10 @@ export class ProyectsPage {
 		this.isPromotions = this.title == 'Promociones';
 		this.isFavorites = this.title == 'Mis favoritos';
 		this.isProyects = this.title == 'Cocinas' || this.title == 'Armarios';
+
+		if (this.platform.is('ios')) {
+			this.isIOS = true;
+		}
   	}
 	
   	ionViewWillEnter() {

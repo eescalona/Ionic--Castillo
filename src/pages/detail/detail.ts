@@ -1,12 +1,11 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, ToastController, Platform } from 'ionic-angular';
 import { GalleryModal } from 'ionic-gallery-modal';
 import { Storage } from '@ionic/Storage';
 
 import { PresupuestoPage } from '../presupuesto/presupuesto';
 import {CastilloServiceProvider } from '../../providers/castillo-service/castillo-service';
 
-@IonicPage()
 @Component({
   selector: 'page-detail',
   templateUrl: 'detail.html',
@@ -21,15 +20,20 @@ export class DetailPage {
 	public grid: any[][];
 	public items: any[];
 	private sharing = false;
-
+	isIOS: any = false;
+	
 	constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, 
-							public ref: ChangeDetectorRef, private servicio: CastilloServiceProvider, 
+							public platform: Platform,public ref: ChangeDetectorRef, private servicio: CastilloServiceProvider, 
 							public toast: ToastController, public storage: Storage) {
   	this.itemId = navParams.get("item_id");
 		this.favorites = navParams.get("favorites"); 
 		this.isFavorites = navParams.get("isFavorites");   
 
 		this.getItem();
+
+		if (this.platform.is('ios')) {
+      this.isIOS = true;
+    }
 
   	console.log('constructor DetailPage');
   }

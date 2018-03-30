@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ProyectsPage } from '../pages/proyects/proyects';
 import { AboutPage } from '../pages/about/about';
 import { ServiciosPage } from '../pages/servicios/servicios';
+import { DatosPage } from '../pages/datos/datos';
 
 @Component({
   templateUrl: 'app.html'
@@ -34,7 +35,8 @@ export class MyApp {
       { title: 'Promociones', component: ProyectsPage},            
       { title: 'Servicios', component: ServiciosPage},
       { title: 'Blog', component: ProyectsPage},
-      { title: 'Conocenos', component: AboutPage}
+      { title: 'Conocenos', component: AboutPage},
+      { title: 'Mis Datos', component: DatosPage}
     ];
 
   }

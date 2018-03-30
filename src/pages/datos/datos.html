@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+
+      <div *ngIf="!isIOS">
+        <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" />
+      </div>
+      <div *ngIf="isIOS">
+        <ion-title>
+          <img class="img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="40%" height="40%"/>
+        </ion-title>
+        <ion-buttons end>
+        <button ion-button ion-only *ngIf="!isEnvio" (click)="guardarDatos()">Guardar</button>
+        <button ion-button ion-only *ngIf="isEnvio" (click)="enviarEmail()">Guardar y Enviar</button>
+        </ion-buttons>
+      </div>
+      
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h1 align="center">Mis Datos</h1>
+  <form [formGroup]= "presupuestoForm">
+    <ion-card>
+      <ion-item class="item-border">
+        <ion-label  floating color="primary">Nombre</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item class="no-line error" *ngIf="name.hasError('required')  && name.touched">
+        <p ion-text color="danger">Por favor ingrese un Nombre.</p>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label  floating color="primary">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item class="no-line error" *ngIf="!email.valid  && email.touched">
+        <p ion-text color="danger" *ngIf="!email.hasError('required')">Por favor ingrese un Email valido.</p>
+        <p ion-text color="danger" *ngIf="email.hasError('required')">Por favor ingrese un Email.</p>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-label  floating color="primary">Teléfono</ion-label>
+        <ion-input type="tel" formControlName="phone"></ion-input>
+      </ion-item>
+      <ion-item class="no-line error" *ngIf="!phone.valid  && phone.touched">
+        <p ion-text color="danger" *ngIf="!phone.hasError('required')">Por favor ingrese un Teléfono valido.</p>
+        <p ion-text color="danger" *ngIf="phone.hasError('required')">Por favor ingrese un Teléfono.</p>
+      </ion-item>
+    </ion-card>
+    <div *ngIf="!isIOS">
+    <button ion-button round color="primary" *ngIf="datosValid() && !isEnvio" (click)="guardarDatos()">Guardar</button> 
+    <button ion-button round color="primary" *ngIf="datosValid() && isEnvio" (click)="enviarEmail()">Guardar y Enviar</button> 
+    <button ion-button round color="light" *ngIf="datosValid() && !isEnvio" (click)="borrarDatos()">Borrar</button> 
+  </div>
+  </form>
+</ion-content>

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { GalleryModal } from 'ionic-gallery-modal';
 import { ProyectsPage } from '../proyects/proyects';
 import { DescargarPage } from '../descargar/descargar';
 
-@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

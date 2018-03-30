@@ -33,9 +33,5 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 
-android-release-unsigned.apk
 cocinasCastillo.keystore
-cocinasCastillov2.apk
-cocinasCastillov3.apk
-cocinasCastillov4.apk
-cocinasCastillov5.apk
+*.apk
