@@ -23,9 +23,9 @@
       <img class= "center img-bg" src="http://cocinascastillo.escalonasoftware.com/public/images/assets/logo.png" width="75%" height="75%"/>
     </div>
   </ion-col>
-       
-  <ion-item>
-    <p><br/></p>
+  
+  <ion-item (click)="navigate('Diseños')">
+    <h1 class="center" >Diseños</h1>
   </ion-item>
   <ion-item (click)="navigate('Cocinas')">
     <h1 class="center" >Cocinas</h1>
@@ -36,7 +36,6 @@
   <ion-item (click)="navigate('Catalogos')">
     <h1 class="center" >Catálogos</h1>
   </ion-item>
-
 </ion-content>
 
 <my-footer></my-footer>

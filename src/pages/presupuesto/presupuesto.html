@@ -28,7 +28,7 @@
       <ion-card>
         <ion-item>
           <ion-label  floating color="primary">Mensaje</ion-label>
-          <ion-textarea rows="15" formControlName="body" maxLength="500"></ion-textarea>
+          <ion-textarea rows="6" formControlName="body" maxLength="500"></ion-textarea>
         </ion-item>
         <ion-item class="no-line error" *ngIf="body.hasError('required')  && body.touched">
           <p ion-text color="danger">Por favor ingrese un Mensaje.</p>

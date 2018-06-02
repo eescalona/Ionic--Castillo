@@ -29,6 +29,7 @@ import { IonicStorageModule } from '@ionic/Storage';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { DescargarPage } from '../pages/descargar/descargar';
 import { DatosPage } from '../pages/datos/datos';
+import { DesignPage } from '../pages/design/design';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { DatosPage } from '../pages/datos/datos';
     DatosPage,
     PresupuestoPage,
     DescargarPage,
+    DesignPage,
     MyShareComponent,
     MyFooterComponent
   ],
@@ -62,6 +64,7 @@ import { DatosPage } from '../pages/datos/datos';
     DatosPage,
     PresupuestoPage,
     DescargarPage,
+    DesignPage,
     MyShareComponent,
     MyFooterComponent
   ],

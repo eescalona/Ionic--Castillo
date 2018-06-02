@@ -23,8 +23,13 @@ export class CastilloServiceProvider {
           let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/catalogs`);
           return repos;
         }else{
-          let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/projects/categories/${typeProyect}`);
-          return repos;
+          if(typeProyect == 'Diseños'){
+            let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/projects/categories/Designs`);
+            return repos;
+          }else{
+            let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/projects/categories/${typeProyect}`);
+            return repos;
+          }
         }
       }
     }
@@ -47,6 +52,11 @@ export class CastilloServiceProvider {
 
   getGallery(itemId){
     let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/projects/${itemId}/gallery`);
+    return repos;
+  }
+
+  getCombination(itemId){
+    let repos = this.http.get(`http://cocinascastillo.escalonasoftware.com/api/projects/${itemId}/combination`);
     return repos;
   }
 

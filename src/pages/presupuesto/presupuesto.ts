@@ -19,9 +19,9 @@ export class PresupuestoPage {
   name: string;
   email: string;
   phone: string;
-  IsPromotion: boolean = false;
-  IsCatalog: boolean = false;
-	isIOS: any = false;
+  isIOS: any = false;
+  design: string;
+  designAux: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private servicio: CastilloServiceProvider,
               public platform: Platform, public _form:FormBuilder, public toast: ToastController, public storage: Storage) {
@@ -31,7 +31,7 @@ export class PresupuestoPage {
     });
 
     this.body = this.presupuestoForm.controls['body'];
-
+    this.design =navParams.get("type");
     this.subject=navParams.get("subject");
     this.title=navParams.get("title");
 
@@ -48,8 +48,13 @@ export class PresupuestoPage {
 
   enviarEmail(){
     if(this.emailValid()){ 
+      if( this.design != null){
+        this.designAux = this.subject
+        this.subject = this.subject + this.design;
+      }
+
       if(this.name == null){
-        this.navCtrl.push(DatosPage,{ subject: this.subject, value: this.body.value})	;
+        this.navCtrl.push(DatosPage,{ subject: this.subject, body: this.body.value});
       }else{
 
         let datos = { name: this.name, mail: this.email, phone:this.phone, 
@@ -87,17 +92,13 @@ export class PresupuestoPage {
           () => { console.log('postMail done') }
         );
       }
+      if( this.design != null){
+        this.subject = this.designAux;
+      }
     }
   }
 
   cargarDatos(){
-    if(this.title=="Reserva tu promoción"){
-      // this.body.setValue(this.subject.value);
-      this.IsPromotion = true;
-    }
-    if(this.title=="Haznos tu pedido"){
-      this.IsCatalog = true;
-    }
     this.storage.get('myDatos').then(
       (data) => {
         console.log('cargarDatos '+ data);

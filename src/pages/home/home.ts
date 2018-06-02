@@ -40,7 +40,7 @@ export class HomePage {
 	}
 
 	navigate(typeParam:string) {
-		this.navCtrl.setRoot(ProyectsPage,{ typeParam: typeParam});
+		this.navCtrl.push(ProyectsPage,{ typeParam: typeParam});
 	}
 
 	showDescargar(){

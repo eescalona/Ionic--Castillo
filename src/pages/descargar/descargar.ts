@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, Platform } from 'ionic-angular';
 import { InAppBrowserOptions, InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
@@ -26,8 +26,12 @@ export class DescargarPage {
 		presentationstyle : 'pagesheet',//iOS only 
 		fullscreen : 'yes',//Windows only    
   };
+  isIOS: any = false;
   
-  constructor(public navCtrl: NavController, public view: ViewController, private iab: InAppBrowser) {
+  constructor(public navCtrl: NavController, public view: ViewController, private iab: InAppBrowser, public platform: Platform) {
+		if (this.platform.is('ios')) {
+      this.isIOS = true;
+    }
   }
 
 	openDescargar(type: string){

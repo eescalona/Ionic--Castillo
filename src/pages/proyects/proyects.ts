@@ -7,6 +7,7 @@ import { DetailPage } from '../detail/detail';
 
 import {CastilloServiceProvider } from '../../providers/castillo-service/castillo-service';
 import { PresupuestoPage } from '../presupuesto/presupuesto';
+import { DesignPage } from '../design/design';
 
 @Component({
   selector: 'page-proyects',
@@ -19,6 +20,7 @@ export class ProyectsPage {
 	public foundRepos;
 	public title:string;
 	private isProyects: boolean;
+	private isDesign: boolean;
 	private isCatalogs: boolean;
 	private isPromotions: boolean;
 	private isFavorites: boolean;
@@ -55,6 +57,7 @@ export class ProyectsPage {
 		this.isPromotions = this.title == 'Promociones';
 		this.isFavorites = this.title == 'Mis favoritos';
 		this.isProyects = this.title == 'Cocinas' || this.title == 'Armarios';
+		this.isDesign = this.title == 'Diseños';
 
 		if (this.platform.is('ios')) {
 			this.isIOS = true;
@@ -70,7 +73,7 @@ export class ProyectsPage {
   	}
 
   	getProyects(){
-		console.log('getProyects ');
+		console.log('getProyects: ' + this.title);
 		this.servicio.getProyects(this.title).map(res => res.json()).subscribe(
 			data => {
 					if(data.data.length == 0){
@@ -101,7 +104,7 @@ export class ProyectsPage {
 	}
 
 	loadFavorites(){
-		if(this.isProyects || this.isFavorites ){
+		if(this.isProyects || this.isFavorites || this.isDesign){
 			this.storage.get('myFavorites').then(
 				(data) => {
 					console.log('load Favorites '+ data);
@@ -189,12 +192,12 @@ export class ProyectsPage {
 		if(this.isCatalogs || this.isPromotions || this.isBlogs)
 		{
 			this.iab.create(item.url, '_system', this.options);
-		}  
-		if(this.isFavorites){
+		} 
+		if(this.isDesign){
+			this.navCtrl.push(DesignPage,{ item_id: item.id, favorites: this.favorites, isFavorites: this.isFavorites });				
+		} 
+		if(this.isFavorites || this.isProyects){
 			this.navCtrl.push(DetailPage,{ item_id: item.id, favorites: this.favorites, isFavorites: this.isFavorites});				
-		}
-		if(this.isProyects){
-			this.navCtrl.push(DetailPage,{ item_id: item.id, favorites: this.favorites, isFavorites: this.isFavorites});
 		}
 	}
 

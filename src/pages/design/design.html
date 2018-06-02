@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <div>
+      <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" />
+    </div>
+    <div align="center">
+      <ion-title>Diseños</ion-title>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-img width="100%" height="200" src={{image}} (click)="itemTapped()"></ion-img> 
+  <h1>{{item.title}}</h1>
+  
+  <!-- Combinaciones -->
+  <p>Elige tu conbinación:</p>
+  <ion-list *ngFor="let c of Combination" text-wrap> 
+    <ion-list-header (click)="collapseList(c.id)">
+      {{c.title}}
+    </ion-list-header>
+    <ion-list radio-group *ngIf="IsOpened(c.id)">
+    <ion-item *ngFor="let o of c.options" >
+        <ion-label>{{o.title}}</ion-label>
+        <ion-radio checked={{Ischecked(c.id,o.id)}} (ionSelect)="checked(c.id,o.id)"></ion-radio>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+
+  <!-- Presupuesto & Favorite -->
+  <ion-item >
+    <ion-col text-left>
+      <button ion-button clear small color="dark" (click)="presupuestoTapped()" icon-start>
+        <ion-icon ios="ios-chatboxes" md="md-chatboxes"></ion-icon>
+        Presupuesto            
+      </button>
+    </ion-col>
+    <ion-col text-center>          
+      <button ion-button clear small color="dark" icon-start (click)="setSharing()">
+        <ion-icon name='share'></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col text-right>
+      <button ion-button clear small color="dark" (click)="setFavorites(item.id)" icon-start>
+            <ion-icon name="star-outline" color="bright" *ngIf="item != null && !isThisFavorite(item.id)" ></ion-icon>
+            <ion-icon name="star" color="bright" *ngIf="item != null && isThisFavorite(item.id)" ></ion-icon> 
+      </button>
+    </ion-col>   
+    <my-share *ngIf="isSharing()" [item]=item (click)="setSharing()"></my-share>
+  </ion-item>
+
+</ion-content>

@@ -132,6 +132,7 @@ export class DatosPage {
                     }).present();
                     // Volvemos a la pagina anterior.
                     this.navCtrl.pop();
+                    this.navCtrl.pop();
             },
           err => {// Notification to user
                   this.toast.create({

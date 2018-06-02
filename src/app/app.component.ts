@@ -29,6 +29,7 @@ export class MyApp {
     this.pages = [
       { title: 'Inicio', component: HomePage},
       { title: 'Mis favoritos', component: ProyectsPage},
+      { title: 'Diseños', component: ProyectsPage},
       { title: 'Cocinas', component: ProyectsPage},
       { title: 'Armarios', component: ProyectsPage},
       { title: 'Catalogos', component: ProyectsPage},
@@ -56,12 +57,12 @@ export class MyApp {
   }
 
   openPage(page) {
-    if(page.title == 'Cocinas' || page.title == 'Armarios' || page.title == 'Catalogos'
+    if(page.title == 'Cocinas' || page.title == 'Armarios' || page.title == 'Diseños' || page.title == 'Catalogos'
         || page.title == 'Promociones' || page.title == 'Mis favoritos' || page.title == 'Blog')
     {
-      this.nav.setRoot(page.component, {typeParam: page.title});
+      this.nav.push(page.component, {typeParam: page.title});
     }else{
-      this.nav.setRoot(page.component);  
+      this.nav.push(page.component);  
     }  
   }
 }

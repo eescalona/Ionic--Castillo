@@ -6,7 +6,7 @@
     <div>
       <img class= "img-bg" src="http://castillococinas.es/data/uploads/logo.png" width="30%" height="30%" align="right" />
     </div>
-    <div *ngIf="isBlogs || isPromotions || isFavorites || isProyects" align="center">
+    <div *ngIf="isBlogs || isPromotions || isFavorites || isProyects || isDesign " align="center">
       <ion-title>{{ title }}</ion-title>
     </div>
     <div *ngIf="isCatalogs" align="center">
@@ -47,7 +47,7 @@
       </ion-row>
 
       <!-- Favorite y Share: proyectos o Mis favoritos -->
-      <ion-row no-padding *ngIf="isProyects || isFavorites">     
+      <ion-row no-padding *ngIf="isProyects || isFavorites || isDesign">     
         <ion-col text-center>          
           <button ion-button clear small color="dark" icon-start (click)="setSharing(repo.id)">
             <ion-icon name='share'></ion-icon>
@@ -63,6 +63,6 @@
         </ion-col>
       </ion-row>
     </ion-card-content>
-      <my-share *ngIf="isSharing(repo.id)" [item]=repo (click)="setSharing(repo.id)"></my-share>
+    <my-share *ngIf="isSharing(repo.id)" [item]=repo (click)="setSharing(repo.id)"></my-share>
   </ion-card>
 </ion-content>
